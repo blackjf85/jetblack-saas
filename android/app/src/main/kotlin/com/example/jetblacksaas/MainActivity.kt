@@ -1,4 +1,4 @@
-package com.example.jetblack_saas
+package com.example.jetblacksaas
 
 import io.flutter.embedding.android.FlutterActivity
 
