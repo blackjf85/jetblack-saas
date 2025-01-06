@@ -3,6 +3,13 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+void _checkEnvVar(String name) {
+  if (dotenv.env[name] == null || dotenv.env[name]!.isEmpty) {
+    throw Exception('Missing required environment variable: $name');
+  }
+}
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -40,49 +47,95 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCfLKDGBfz_TAK_Clkmz0v6kkCNJ_EaQKo',
-    appId: '1:173328285943:web:e4cea3e096583a0ee5d3f2',
-    messagingSenderId: '173328285943',
-    projectId: 'jetblack-saas',
-    authDomain: 'jetblack-saas.firebaseapp.com',
-    storageBucket: 'jetblack-saas.firebasestorage.app',
-    measurementId: 'G-HW13FFK1VV',
-  );
+  static FirebaseOptions get web {
+    _checkEnvVar('FIREBASE_API_KEY');
+    _checkEnvVar('FIREBASE_APP_ID');
+    _checkEnvVar('FIREBASE_MESSAGING_SENDER_ID');
+    _checkEnvVar('FIREBASE_PROJECT_ID');
+    _checkEnvVar('FIREBASE_AUTH_DOMAIN');
+    _checkEnvVar('FIREBASE_STORAGE_BUCKET');
+    _checkEnvVar('FIREBASE_MEASUREMENT_ID');
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB0739G28yzmu_eSHGbywigZXTAuBZu9Cw',
-    appId: '1:173328285943:android:f8a6afaf78ed38a2e5d3f2',
-    messagingSenderId: '173328285943',
-    projectId: 'jetblack-saas',
-    storageBucket: 'jetblack-saas.firebasestorage.app',
-  );
+    return FirebaseOptions(
+      apiKey: dotenv.env['FIREBASE_API_KEY']!,
+      appId: dotenv.env['FIREBASE_APP_ID']!,
+      messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID']!,
+      projectId: dotenv.env['FIREBASE_PROJECT_ID']!,
+      authDomain: dotenv.env['FIREBASE_AUTH_DOMAIN']!,
+      storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET']!,
+      measurementId: dotenv.env['FIREBASE_MEASUREMENT_ID']!,
+    );
+  }
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCty8kOndKTiZfwZHKII4p2kpySUCxqc8o',
-    appId: '1:173328285943:ios:a0373dfacf99e3b6e5d3f2',
-    messagingSenderId: '173328285943',
-    projectId: 'jetblack-saas',
-    storageBucket: 'jetblack-saas.firebasestorage.app',
-    iosBundleId: 'com.example.jetblackSaas',
-  );
+  static FirebaseOptions get android {
+    _checkEnvVar('FIREBASE_API_KEY');
+    _checkEnvVar('FIREBASE_APP_ID');
+    _checkEnvVar('FIREBASE_MESSAGING_SENDER_ID');
+    _checkEnvVar('FIREBASE_PROJECT_ID');
+    _checkEnvVar('FIREBASE_STORAGE_BUCKET');
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCty8kOndKTiZfwZHKII4p2kpySUCxqc8o',
-    appId: '1:173328285943:ios:a0373dfacf99e3b6e5d3f2',
-    messagingSenderId: '173328285943',
-    projectId: 'jetblack-saas',
-    storageBucket: 'jetblack-saas.firebasestorage.app',
-    iosBundleId: 'com.example.jetblackSaas',
-  );
+    return FirebaseOptions(
+      apiKey: dotenv.env['FIREBASE_API_KEY']!,
+      appId: dotenv.env['FIREBASE_APP_ID']!,
+      messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID']!,
+      projectId: dotenv.env['FIREBASE_PROJECT_ID']!,
+      storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET']!,
+    );
+  }
 
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyCfLKDGBfz_TAK_Clkmz0v6kkCNJ_EaQKo',
-    appId: '1:173328285943:web:d93e89f983c65cb2e5d3f2',
-    messagingSenderId: '173328285943',
-    projectId: 'jetblack-saas',
-    authDomain: 'jetblack-saas.firebaseapp.com',
-    storageBucket: 'jetblack-saas.firebasestorage.app',
-    measurementId: 'G-RZ4H044S32',
-  );
+  static FirebaseOptions get ios {
+    _checkEnvVar('FIREBASE_API_KEY');
+    _checkEnvVar('FIREBASE_APP_ID');
+    _checkEnvVar('FIREBASE_MESSAGING_SENDER_ID');
+    _checkEnvVar('FIREBASE_PROJECT_ID');
+    _checkEnvVar('FIREBASE_STORAGE_BUCKET');
+    _checkEnvVar('FIREBASE_IOS_BUNDLE_ID');
+
+    return FirebaseOptions(
+      apiKey: dotenv.env['FIREBASE_API_KEY']!,
+      appId: dotenv.env['FIREBASE_APP_ID']!,
+      messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID']!,
+      projectId: dotenv.env['FIREBASE_PROJECT_ID']!,
+      storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET']!,
+      iosBundleId: dotenv.env['FIREBASE_IOS_BUNDLE_ID']!,
+    );
+  }
+
+  static FirebaseOptions get macos {
+    _checkEnvVar('FIREBASE_API_KEY');
+    _checkEnvVar('FIREBASE_APP_ID');
+    _checkEnvVar('FIREBASE_MESSAGING_SENDER_ID');
+    _checkEnvVar('FIREBASE_PROJECT_ID');
+    _checkEnvVar('FIREBASE_STORAGE_BUCKET');
+    _checkEnvVar('FIREBASE_IOS_BUNDLE_ID');
+
+    return FirebaseOptions(
+      apiKey: dotenv.env['FIREBASE_API_KEY']!,
+      appId: dotenv.env['FIREBASE_APP_ID']!,
+      messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID']!,
+      projectId: dotenv.env['FIREBASE_PROJECT_ID']!,
+      storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET']!,
+      iosBundleId: dotenv.env['FIREBASE_IOS_BUNDLE_ID']!,
+    );
+  }
+
+  static FirebaseOptions get windows {
+    _checkEnvVar('FIREBASE_API_KEY');
+    _checkEnvVar('FIREBASE_APP_ID');
+    _checkEnvVar('FIREBASE_MESSAGING_SENDER_ID');
+    _checkEnvVar('FIREBASE_PROJECT_ID');
+    _checkEnvVar('FIREBASE_AUTH_DOMAIN');
+    _checkEnvVar('FIREBASE_STORAGE_BUCKET');
+    _checkEnvVar('FIREBASE_MEASUREMENT_ID');
+
+    return FirebaseOptions(
+      apiKey: dotenv.env['FIREBASE_API_KEY']!,
+      appId: dotenv.env['FIREBASE_APP_ID']!,
+      messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID']!,
+      projectId: dotenv.env['FIREBASE_PROJECT_ID']!,
+      authDomain: dotenv.env['FIREBASE_AUTH_DOMAIN']!,
+      storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET']!,
+      measurementId: dotenv.env['FIREBASE_MEASUREMENT_ID']!,
+    );
+  }
 }
