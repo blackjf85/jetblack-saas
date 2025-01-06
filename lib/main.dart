@@ -4,33 +4,54 @@ import 'theme/app_theme.dart';
 
 void main() => runApp(const MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeMode _themeMode = ThemeMode.system;
+
+  void _toggleTheme(bool isDark) {
+    setState(() {
+      _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'JetBlack SaaS',
-      theme: AppTheme.darkTheme,
-      darkTheme: AppTheme.lightTheme,
-      themeMode: ThemeMode.system,
-      home: const MainLayout(),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: _themeMode,
+      home: MainLayout(
+        toggleTheme: _toggleTheme,
+        isDarkMode: _themeMode == ThemeMode.dark,
+      ),
     );
   }
 }
 
 class MainLayout extends StatefulWidget {
-  const MainLayout({super.key});
+  final Function(bool) toggleTheme;
+  final bool isDarkMode;
+
+  const MainLayout({
+    super.key,
+    required this.toggleTheme,
+    required this.isDarkMode,
+  });
 
   @override
   State<MainLayout> createState() => _MainLayoutState();
 }
 
 class _MainLayoutState extends State<MainLayout> {
-  bool _isDarkMode = true;
-
   void _toggleTheme() {
-    setState(() => _isDarkMode = !_isDarkMode);
+    widget.toggleTheme(!widget.isDarkMode);
   }
 
   @override
@@ -47,7 +68,7 @@ class _MainLayoutState extends State<MainLayout> {
       automaticallyImplyLeading: false,
       leading: IconButton(
         icon: Icon(
-          _isDarkMode ? Icons.light_mode : Icons.dark_mode,
+          widget.isDarkMode ? Icons.light_mode : Icons.dark_mode,
           color: AppTheme.primaryPurple,
         ),
         onPressed: _toggleTheme,
