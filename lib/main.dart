@@ -82,19 +82,6 @@ class _MyAppState extends State<MyApp> {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.support_agent,
-                  color: AppTheme.primaryPurple,
-                ),
-                title: Text(
-                  'Support',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: AppTheme.primaryPurple,
-                      ),
-                ),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: Icon(
                   Icons.help_outline,
                   color: AppTheme.primaryPurple,
                 ),
