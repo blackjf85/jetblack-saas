@@ -28,24 +28,107 @@ class _MyAppState extends State<MyApp> {
       theme: _isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('JetBlack SaaS'),
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(
+              _isDarkMode ? Icons.light_mode : Icons.dark_mode,
+              color: AppTheme.primaryPurple,
+            ),
+            onPressed: _toggleTheme,
+          ),
           actions: [
-            IconButton(
-              icon: Icon(
-                _isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                color: AppTheme.primaryPurple,
+            Builder(
+              builder: (context) => IconButton(
+                icon: Icon(
+                  Icons.menu,
+                  color: AppTheme.primaryPurple,
+                ),
+                onPressed: () => Scaffold.of(context).openDrawer(),
               ),
-              onPressed: _toggleTheme,
             ),
           ],
         ),
-        body: Center(
+        drawer: Drawer(
+          semanticLabel: 'Navigation Menu',
+          elevation: 16.0,
+          child: ListView(
+            padding: const EdgeInsets.all(16.0),
+            children: [
+              ListTile(
+                leading: Icon(
+                  Icons.home,
+                  color: AppTheme.primaryPurple,
+                ),
+                title: Text(
+                  'Home',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: AppTheme.primaryPurple,
+                      ),
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.account_circle,
+                  color: AppTheme.primaryPurple,
+                ),
+                title: Text(
+                  'Account',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: AppTheme.primaryPurple,
+                      ),
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.support_agent,
+                  color: AppTheme.primaryPurple,
+                ),
+                title: Text(
+                  'Support',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: AppTheme.primaryPurple,
+                      ),
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.help_outline,
+                  color: AppTheme.primaryPurple,
+                ),
+                title: Text(
+                  'Help',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: AppTheme.primaryPurple,
+                      ),
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.login,
+                  color: AppTheme.primaryPurple,
+                ),
+                title: Text(
+                  'Login',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: AppTheme.primaryPurple,
+                      ),
+                ),
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
+        body: const Center(
           child: Text(
             'Welcome to JetBlack SaaS',
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppTheme.primaryPurple,
-                  fontWeight: FontWeight.bold,
-                ),
+            style: TextStyle(
+              color: AppTheme.primaryPurple,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
